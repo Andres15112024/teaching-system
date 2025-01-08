@@ -18,7 +18,10 @@ public class Main {
             System.out.println("1. Create a Student ");
             System.out.println("2. Create a Teacher ");
             System.out.println("3. Create a Subject ");
-            System.out.println("4. Exit ");
+            System.out.println("4. Print Student ");
+            System.out.println("5. Print Teacher ");
+            System.out.println("6. Print Subject ");
+            System.out.println("7. Exit ");
 
             option = sc.nextInt();
 
@@ -36,10 +39,18 @@ public class Main {
                     subjectList.add(subject);
                     break;
                 case 4:
+                    printStudentList(studentList);
+                case 5:
+                    printTeacherList(teacherList);
+                case 6:
+                    printSubjectList(subjectList);
+                case 7:
                     System.out.println("***** Exit System *******");
                     break;
+                default:
+                    System.out.println("Invalid option. Please try again.");
             }
-        } while(option != 4);
+        } while(option != 7);
     }
 
     public static Student createStudent() {
@@ -72,24 +83,6 @@ public class Main {
         return new Teacher(name, lastName, age, teacherCode, yearsOfExperience);
     }
 
-    public static void printTeacherList(List<Teacher> teacherList) {
-        int index = 1;
-        for(Teacher teacher : teacherList) {
-            System.out.println(index + " . " + teacher.getName().toUpperCase()
-                    + " - " +  teacher.getLastName().toUpperCase());
-            index = index + 1;
-        }
-    }
-
-    public static void printStudentList(List<Student> studentList) {
-        int index = 1;
-        for(Student student : studentList) {
-            System.out.println(index + " . " + student.getName().toUpperCase()
-                    + " - " +  student.getLastName().toUpperCase());
-            index = index + 1;
-        }
-    }
-
     public static Subject createSubject(List<Teacher> teacherList, List<Student> studentList) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter a name: ");
@@ -114,5 +107,36 @@ public class Main {
         }
 
         return new Subject(name, teacher, students);
+    }
+
+    public static void printTeacherList(List<Teacher> teacherList) {
+        int index = 1;
+        for(Teacher teacher : teacherList) {
+            System.out.println(index + " . " + teacher.getName().toUpperCase()
+                    + " - " +  teacher.getLastName().toUpperCase());
+            index = index + 1;
+        }
+    }
+
+    public static void printStudentList(List<Student> studentList) {
+        int index = 1;
+        for(Student student : studentList) {
+            System.out.println(index + " . " + student.getName().toUpperCase()
+                    + " - " +  student.getLastName().toUpperCase());
+            index = index + 1;
+        }
+    }
+
+    public static void printSubjectList(List<Subject> subjectList) {
+        int index = 1;
+        for (Subject subject : subjectList) {
+            System.out.println(index + ". Subject: " + subject.getName());
+            System.out.println(" Teacher: " + subject.getTeacher().getName()
+                    + " " + subject.getTeacher().getLastName());
+            System.out.println(" Students: ");
+            for (Student student : subject.getStudentList())
+                System.out.println(" - " + student.getName() + " " + student.getLastName());
+            index++;
+        }
     }
 }
